@@ -2,7 +2,7 @@ package ru.shepelevkirill.kp
 
 object Task6 {
   case class ListNode(var x: Int = 0, var next: ListNode = null)
-
+  // TODO Cleanup
   def solution(l1: ListNode, l2: ListNode): ListNode = {
     val resultListNode = ListNode()
     var resultTail = resultListNode
