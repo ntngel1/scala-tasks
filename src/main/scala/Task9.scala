@@ -8,7 +8,6 @@ object Task9 {
   case object Dot extends Token
   case object DotStar extends Token
 
-  // TODO Implement lexer/parser
   def solution(s: String, p: String): Boolean = {
     def tokenizer(pattern: String): Array[Token] = {
       var index = 0
