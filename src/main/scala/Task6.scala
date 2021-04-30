@@ -2,36 +2,25 @@ package ru.shepelevkirill.kp
 
 object Task6 {
   case class ListNode(var x: Int = 0, var next: ListNode = null)
-  // TODO Cleanup
+
   def solution(l1: ListNode, l2: ListNode): ListNode = {
-    val resultListNode = ListNode()
-    var resultTail = resultListNode
-    var resultPenultimateNode = resultListNode
-    var next1 = Option(l1)
-    var next2 = Option(l2)
+    def recursiveSum(l1: ListNode, l2: ListNode, swap: Int = 0): ListNode = {
+      val sum = l1.x + l2.x + swap
 
-    while (next1.isDefined || next2.isDefined) {
-      val resultX = resultTail.x + next1.fold(0)(_.x) + next2.fold(0)(_.x)
+      if (l1.next == null || l2.next == null) {
+        val next = if (sum >= 10) {
+          ListNode(sum / 10)
+        } else {
+          null
+        }
 
-      if (resultX == 0) {
-        resultPenultimateNode.next = null
-        return resultListNode
+        return ListNode(sum % 10, next)
       }
 
-      resultTail.x = resultX % 10
-      resultTail.next = ListNode(resultX / 10)
-
-      resultPenultimateNode = resultTail
-      resultTail = resultTail.next
-      next1 = next1.fold(Option.empty[ListNode])(listNode => Option(listNode.next))
-      next2 = next2.fold(Option.empty[ListNode])(listNode => Option(listNode.next))
+      ListNode(sum % 10, recursiveSum(l1.next, l2.next, sum / 10))
     }
 
-    if (resultTail.x == 0) {
-      resultPenultimateNode.next = null
-    }
-
-    resultListNode
+    recursiveSum(l1, l2)
   }
 
   println(s"Task 6 = ${solution(ListNode(2, ListNode(4, ListNode(3))), ListNode(5, ListNode(6, ListNode(4))))}")

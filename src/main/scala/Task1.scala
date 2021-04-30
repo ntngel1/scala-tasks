@@ -1,6 +1,5 @@
 package ru.shepelevkirill.kp
 
-// TODO Unit tests
 object Task1 {
   def solution(nums: Array[Int], target: Int): Array[Int] =
     nums.zipWithIndex

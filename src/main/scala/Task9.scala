@@ -1,59 +1,68 @@
 package ru.shepelevkirill.kp
 
+import scala.annotation.tailrec
+
 object Task9 {
   sealed abstract class Token
 
-  final case class Symbol(char: Char) extends Token
-  final case class Star(char: Char) extends Token
-  case object Dot extends Token
-  case object DotStar extends Token
+  final case class OneTime(char: Char) extends Token
+
+  final case class ZeroOrMoreTimes(char: Char) extends Token
+
+  case object AnyCharOneTime extends Token
+
+  case object AnyCharZeroOrMoreTimes extends Token
 
   def solution(s: String, p: String): Boolean = {
-    def tokenizer(pattern: String): Array[Token] = {
-      var index = 0
-      var tokens = Array.empty[Token]
+    def tokenizer(pattern: Array[Char]): Array[Token] = pattern.headOption match {
+      case Some('.') if pattern.lift(1).contains('*') =>
+        Array(AnyCharZeroOrMoreTimes)
+          .appendedAll(
+            tokenizer(pattern.drop(2))
+          )
 
-      while (index < pattern.length) {
-        if (pattern(index) == '.') {
-          if (index + 1 < pattern.length && pattern(index + 1) == '*') {
-            tokens = tokens.appended(DotStar)
-            index += 2
-          } else {
-            tokens = tokens.appended(Dot)
-            index += 1
-          }
-        } else if (index + 1 < pattern.length && pattern(index + 1) == '*') {
-          val char = pattern(index)
-          tokens = tokens.appended(Star(char))
-          index += 2
-        } else {
-          tokens = tokens.appended(Symbol(pattern(index)))
-          index += 1
-        }
-      }
+      case Some('.') =>
+        Array(AnyCharOneTime)
+          .appendedAll(
+            tokenizer(pattern.drop(1))
+          )
 
-      tokens
+      case Some(_) if pattern.lift(1).contains('*') =>
+        Array(ZeroOrMoreTimes(pattern.head))
+          .appendedAll(
+            tokenizer(pattern.drop(2))
+          )
+
+      case Some(_) =>
+        Array(OneTime(pattern.head))
+          .appendedAll(
+            tokenizer(pattern.drop(1))
+          )
+
+      case None => Array.empty
     }
 
+    @tailrec
     def matcher(string: String, pattern: Array[Token]): Boolean = {
-      var stringIndex = 0
+      if (pattern.isEmpty) return string.isEmpty
 
-      for (a <- pattern.indices) {
-        pattern(a) match {
-          case Symbol(char) if string(stringIndex) == char => stringIndex += 1
-          case Star(char) =>
-            val charCount = string.drop(stringIndex).takeWhile(_ == char).length
-            stringIndex += charCount
-          case Dot => stringIndex += 1
-          case DotStar => return true
-          case _ => return false
-        }
+      pattern.head match {
+        case OneTime(char) =>
+          if (string.head == char) {
+            matcher(string.drop(1), pattern.drop(1))
+          }
+          else {
+            false
+          }
+
+        case AnyCharOneTime => matcher(string.drop(1), pattern.drop(1))
+
+        case AnyCharZeroOrMoreTimes => true
+        case ZeroOrMoreTimes(char) => matcher(string.dropWhile(_ == char), pattern.drop(1))
       }
-
-      stringIndex == string.length
     }
 
-    matcher(s, tokenizer(p))
+    matcher(s, tokenizer(p.toCharArray))
   }
 
   println(s"Task 9 = ${solution("aa", "a")}")

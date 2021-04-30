@@ -1,10 +1,9 @@
 package ru.shepelevkirill.kp
 
 object Task10 {
-  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] =
     matrix.transpose
       .map(_.reverse)
-  }
 
   private val matrix1 = Array(
     Array(1, 2, 3),

@@ -1,16 +1,19 @@
 package ru.shepelevkirill.kp
 
-// TODO Imperative to functional?
 object Task2 {
   def solution(x: Int): Boolean = {
-    var buffer = x
-    var reversed = 0
-    while (buffer > 0) {
-      reversed = reversed * 10 + buffer % 10
-      buffer /= 10
+    def intStream(x: Int): Array[Int] = {
+      if (x / 10 == 0) return Array(x)
+
+      Array(x).appendedAll(intStream(x / 10))
     }
 
-    x == reversed
+    if (x < 0) return false
+
+    val reversed = intStream(x).map(_ % 10)
+      .foldLeft(0)((value, digit) => value * 10 + digit)
+
+    reversed == x
   }
 
   println(s"Task 2 = ${solution(121)}")

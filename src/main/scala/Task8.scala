@@ -2,29 +2,25 @@ package ru.shepelevkirill.kp
 
 object Task8 {
   def solution(s: String): Int = {
-    var characters = Set.empty[Char]
-    var currentSubstringLength = 0
-    var longestSubstringLength = 0
+    case class State(characters: Set[Char] = Set.empty, longestSubstringLength: Int = 0, currentSubstringLength: Int = 0)
 
-    s.foreach(char => {
-      if (characters.contains(char)) {
-        if (currentSubstringLength > longestSubstringLength) {
-          longestSubstringLength = currentSubstringLength
-        }
-
-        currentSubstringLength = 1
-        characters = Set(char)
+    val result = s.foldLeft(State())((state, char) => {
+      if (state.characters.contains(char)) {
+        State(
+          characters = Set(char),
+          longestSubstringLength = if (state.currentSubstringLength > state.longestSubstringLength) {
+            state.currentSubstringLength
+          } else {
+            state.longestSubstringLength
+          },
+          currentSubstringLength = 1
+        )
       } else {
-        characters += char
-        currentSubstringLength += 1
+        state.copy(characters = state.characters + char, currentSubstringLength = state.currentSubstringLength + 1)
       }
     })
 
-    if (currentSubstringLength > longestSubstringLength) {
-      longestSubstringLength = currentSubstringLength
-    }
-
-    longestSubstringLength
+    result.longestSubstringLength.max(result.currentSubstringLength)
   }
 
   println(s"Task 8 = ${solution("abcabcbb")}")
