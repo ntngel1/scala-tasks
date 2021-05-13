@@ -2,10 +2,18 @@ package ru.shepelevkirill.kp
 
 import scala.collection.mutable.ListBuffer
 
+/**
+ * Дано не пустая строка и словарь содержащий список не пустых слов. Добавьте пробелы в строку, чтобы создать
+ * предложение, где каждое слово является допустимым словарным словом. Верните все такие возможные предложения.
+ *
+ * Одно и то же слово в словаре может быть многократно использовано в сегментации.
+ * Словарь не содержит повторяющихся слов.
+ */
 object Task14 {
   def solution(s: String, wordDict: List[String]): List[String] = {
     val result = ListBuffer.empty[String]
 
+    // todo try to do split with tail recursion
     def split(s: String, buffer: List[String], wordDict: List[String]): Unit = {
       if (s.isEmpty) result.addOne(buffer.mkString(" "))
 

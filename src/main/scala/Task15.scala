@@ -1,10 +1,16 @@
 package ru.shepelevkirill.kp
 
+/**
+ * Дана 2D сеточная карта, состоящая из "1" (земля) и "0" (вода). Подсчитайте количество островов.
+ * Остров окружен водой и образован соединением соседних земель по горизонтали или вертикали.
+ *
+ * Все четыре края сетки окружены водой.
+ */
 object Task15 {
   def solution(grid: Array[Array[Char]]): Int = {
     def markVisited(row: Int, column: Int): Unit = {
       if (row < 0 || row >= grid.length || column < 0 || column >= grid.head.length || grid(row)(column) == '0')
-        return
+        return // todo remove return
 
       grid(row).update(column, '0')
 

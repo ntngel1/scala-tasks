@@ -8,7 +8,7 @@ package ru.shepelevkirill.kp
  * НЕ выделяйте другую 2D матрицу.
  */
 object Task10 {
-  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = { // TODO Maybe combine these two methods into single one?
     def transposeInPlace(matrix: Array[Array[Int]]): Array[Array[Int]] = {
       for (a <- 1 until matrix.length) {
         for (b <- 0 until a) {
