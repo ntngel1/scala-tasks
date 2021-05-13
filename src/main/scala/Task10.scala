@@ -1,9 +1,41 @@
 package ru.shepelevkirill.kp
 
-object Task10 { // todo directly rotate matrix and rewrite "string" method
-  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] =
-    matrix.transpose
-      .map(_.reverse)
+/**
+ * Дана n x n 2D матрица (двумерный массив) представляющая изображение. Поверните изображение на 90 градусов
+ * (по часовой стрелке).
+ *
+ * Вы должны повернуть изображение на месте, что означает, что вы должны изменить входную 2D матрицу напрямую.
+ * НЕ выделяйте другую 2D матрицу.
+ */
+object Task10 {
+  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+    def transposeInPlace(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+      for (a <- 1 until matrix.length) {
+        for (b <- 0 until a) {
+          val temporary = matrix(a)(b)
+          matrix(a).update(b, matrix(b)(a))
+          matrix(b).update(a, temporary)
+        }
+      }
+
+      matrix
+    }
+
+    def reverseInPlace(matrix: Array[Array[Int]]): Array[Array[Int]] = {
+      val n = matrix.length
+      for (a <- matrix.indices) {
+        for (b <- 0 until n / 2) {
+          val temporary = matrix(a)(b)
+          matrix(a).update(b, matrix(a)(n - 1 - b))
+          matrix(a).update(n - 1 - b, temporary)
+        }
+      }
+
+      matrix
+    }
+
+    reverseInPlace(transposeInPlace(matrix))
+  }
 
   private val matrix1 = Array(
     Array(1, 2, 3),
