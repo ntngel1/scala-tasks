@@ -1,6 +1,6 @@
 package ru.shepelevkirill.kp
 
-object Task12 {
+object Task12 { // todo  Для ".1", "4.", "-.9", "-90E3" выдает false, хотя должен быть true
   def solution(s: String): Boolean = {
     val integerGroup = "^([\\+-]?\\d+)"
     val fractionalGroup = "(\\.\\d+)?"

@@ -1,6 +1,6 @@
 package ru.shepelevkirill.kp
 
-object Task10 {
+object Task10 { // todo directly rotate matrix and rewrite "string" method
   def solution(matrix: Array[Array[Int]]): Array[Array[Int]] =
     matrix.transpose
       .map(_.reverse)

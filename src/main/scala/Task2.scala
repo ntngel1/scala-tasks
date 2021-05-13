@@ -1,5 +1,7 @@
 package ru.shepelevkirill.kp
 
+import scala.annotation.tailrec
+
 /**
  * Определите, является ли целое число палиндромом.
  *
@@ -8,19 +10,11 @@ package ru.shepelevkirill.kp
  */
 object Task2 {
   def solution(x: Int): Boolean = {
-    def intStream(x: Int): Array[Int] = {
-      if (x / 10 == 0) {
-        Array(x)
-      } else {
-        Array(x).appendedAll(intStream(x / 10))
-      }
-    }
+    @tailrec
+    def reverse(x: Int, y: Int = 0): Int = if (x % 10 == 0) y else reverse(x / 10, y * 10 + x % 10)
 
-    if (x > 0) {
-      val reversed = intStream(x).map(_ % 10)
-        .foldLeft(0)((value, digit) => value * 10 + digit)
-
-      reversed == x
+    if (x >= 0) {
+      reverse(x) == x
     } else {
       false
     }

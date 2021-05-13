@@ -1,27 +1,13 @@
 package ru.shepelevkirill.kp
 
+/**
+ * По заданной строке найдите длину самой длинной подстроки без повторяющихся символов.
+ */
 object Task8 {
-  def solution(s: String): Int = {
-    case class State(characters: Set[Char] = Set.empty, longestSubstringLength: Int = 0, currentSubstringLength: Int = 0)
-
-    val result = s.foldLeft(State())((state, char) => {
-      if (state.characters.contains(char)) {
-        State(
-          characters = Set(char),
-          longestSubstringLength = if (state.currentSubstringLength > state.longestSubstringLength) {
-            state.currentSubstringLength
-          } else {
-            state.longestSubstringLength
-          },
-          currentSubstringLength = 1
-        )
-      } else {
-        state.copy(characters = state.characters + char, currentSubstringLength = state.currentSubstringLength + 1)
-      }
-    })
-
-    result.longestSubstringLength.max(result.currentSubstringLength)
-  }
+  def solution(s: String): Int =
+    s.scanLeft("")((substring, char) => if (substring.contains(char)) char.toString else substring + char)
+      .maxBy(_.length)
+      .length
 
   println(s"Task 8 = ${solution("abcabcbb")}")
   // Task 8 = 3

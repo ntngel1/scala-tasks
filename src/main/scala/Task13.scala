@@ -1,7 +1,6 @@
 package ru.shepelevkirill.kp
 
-object Task13 {
-  // TODO Cleanup
+object Task13 { // TODO На "2552551113500001111010010101023" программа зависает
   def solution(s: String): List[String] = {
     def separate(s: String): Array[String] = {
       val t = for (a <- 1 to s.length.min(3)) yield s.substring(0, a)
