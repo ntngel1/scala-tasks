@@ -1,12 +1,17 @@
 package ru.shepelevkirill.kp
 
+/**
+ * Дана строка, содержащая прописные/строчные буквы алфавита и символы пробела. Верните длину последнего слова в строке.
+ *
+ * Слово определяется как последовательность символов, не содержащее пробела.
+ * Если последнее слово отсутствует, вернуть 0.
+ */
 object Task3 {
   def solution(s: String): Int =
     s.trim
-      .replaceAll(" +", " ")
       .split(' ')
       .lastOption
-      .fold(0)(string => string.length)
+      .fold(0)(_.length)
 
   println(s"Task 3 = ${solution("Hello World")}")
   // Task 3 = 5
