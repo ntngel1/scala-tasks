@@ -8,7 +8,7 @@ package ru.shepelevkirill.kp
  * НЕ выделяйте другую 2D матрицу.
  */
 object Task10 {
-  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = { // TODO Maybe combine these two methods into single one?
+  def solution(matrix: Array[Array[Int]]): Array[Array[Int]] = {
     def transposeInPlace(matrix: Array[Array[Int]]): Array[Array[Int]] = {
       for (a <- 1 until matrix.length) {
         for (b <- 0 until a) {
@@ -50,6 +50,7 @@ object Task10 {
     Array(15, 14, 12, 16),
   )
 
+  // TODO Так и не понял как можно красиво эту функцию переписать
   def string(array: Array[Array[Int]]): String =
     array.map(_.mkString("\n  Array(", ", ", ")"))
       .mkString("Array(", ", ", "\n)")

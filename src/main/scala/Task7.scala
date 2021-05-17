@@ -13,7 +13,8 @@ object Task7 {
       false
     } else {
       for (a <- 1 to nums.headOption.getOrElse(0)) {
-        if (solution(nums.drop(a))) return true // TODO Is 'return' can be used here? Is 'drop' can be used here?
+        if (solution(nums.drop(a))) return true // TODO Можно ли здесь использовать return? Задача помечена как done но
+                                                //      но return'ы же вроде бы не юзаем?
       }
 
       false

@@ -13,9 +13,9 @@ object Task2 {
     @tailrec
     def reverse(x: Int, y: Int = 0): Int = if (x % 10 == 0) y else reverse(x / 10, y * 10 + x % 10)
 
-    if (x >= 0) {
+    if (x >= 0)
       reverse(x) == x
-    } else {
+    else {
       false
     }
   }

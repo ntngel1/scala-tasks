@@ -1,6 +1,4 @@
-package ru.shepelevkirill.kp
-
-// TODO Package name?
+package ru.shepelevkirill.kp // TODO у меня IDEA не ругается на имя пакета
 
 /**
  * Дан массив чисел и целевое значение. Напишите программу, которая будет возвращать индексы 2 чисел, сумма которых

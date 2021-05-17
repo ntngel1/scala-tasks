@@ -11,46 +11,49 @@ package ru.shepelevkirill.kp
  * 0 <= s.length <= 3000
  * Строка состоит только из цифр.
  */
-object Task13 { // TODO На "2552551113500001111010010101023" программа зависает, return, drop, cleanup!!!
+object Task13 {
   def solution(s: String): List[String] = {
-    def separate(s: String): Array[String] = {
-      val t = for (a <- 1 to s.length.min(3)) yield s.substring(0, a)
-      t.toArray // do this without 't' (use parenthesis)
-    }
+    def separate(s: String): Array[String] =
+      (for (a <- 1 to s.length.min(3)) yield s.substring(0, a)).toArray
 
     def isValidIp(ip: String): Boolean = {
-      if (ip.length > 15) return false // remove returns
-      if (ip.count(_ == '.') != 3) return false
-
-      ip.split('.').foreach(part => {
+      ip.length <= 15 && ip.count(_ == '.') == 3 && ip.split('.').forall { part =>
         val partInt = part.toInt
-        if (part.length > 3 || partInt < 0 || partInt > 255) return false
-        if (part.length > 1 && partInt == 0) return false
-        if (part.length > 1 && partInt != 0 && part(0) == '0') return false
-      })
 
-      true
+        if (part.length > 3 || partInt < 0 || partInt > 255) false
+        else if (part.length > 1 && partInt == 0) false
+        else if (part.length > 1 && partInt != 0 && part(0) == '0') false
+        else true
+      }
     }
 
-    // todo maybe somehow optimize this algorithm?
     def tree(s: String, separations: Seq[String]): Seq[String] = {
       val nextSeparations = for (separation <- separations) yield {
-        if (separation.filterNot(_ == '.').length == s.length) Left(separation)
-        else Right((separation, separate(s.drop(separation.filterNot(_ == '.').length))))
+        val separationLength = separation.filterNot(_ == '.').length
+        if (separationLength == s.length) {
+          Left(separation)
+        } else {
+          val remainingString = s.drop(separationLength)
+          Right((separation, separate(remainingString)))
+        }
       }
 
       nextSeparations
-        .flatMap(result => {
+        .flatMap { result =>
           result match {
             case Left(separation) => Seq(separation)
             case Right((separation, separations)) => tree(s, separations.map(separation + '.' + _))
           }
-        })
+        }
     }
 
-    tree(s, separate(s))
-      .filter(isValidIp)
-      .toList
+    if (s.length <= 12) {
+      tree(s, separate(s))
+        .filter(isValidIp)
+        .toList
+    } else {
+      List.empty
+    }
   }
 
   println(s"Task 13 = ${solution("25525511135")}")
@@ -67,4 +70,7 @@ object Task13 { // TODO На "2552551113500001111010010101023" программ�
 
   println(s"Task 13 = ${solution("101023")}")
   // Task 13 = List("1.0.10.23", "1.0.102.3", "10.1.0.23", "10.10.2.3", "101.0.2.3")
+
+  println(s"Task 13 = ${solution("2552551113500001111010010101023")}")
+  // Task 13 = List()
 }

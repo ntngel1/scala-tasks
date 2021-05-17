@@ -13,7 +13,6 @@ object Task14 {
   def solution(s: String, wordDict: List[String]): List[String] = {
     val result = ListBuffer.empty[String]
 
-    // todo try to do split with tail recursion
     def split(s: String, buffer: List[String], wordDict: List[String]): Unit = {
       if (s.isEmpty) result.addOne(buffer.mkString(" "))
 

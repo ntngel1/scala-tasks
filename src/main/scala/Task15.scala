@@ -10,7 +10,8 @@ object Task15 {
   def solution(grid: Array[Array[Char]]): Int = {
     def markVisited(row: Int, column: Int): Unit = {
       if (row < 0 || row >= grid.length || column < 0 || column >= grid.head.length || grid(row)(column) == '0')
-        return // todo remove return
+        return // TODO Можно ли здесь использовать return? Задача помечена как done но
+               //      но return'ы же вроде бы не юзаем?
 
       grid(row).update(column, '0')
 

@@ -11,12 +11,11 @@ package ru.shepelevkirill.kp
  *
  * Предпочтительнее решить задачу с помощью регулярного выражения.
  */
-object Task12 { // todo  Для ".1", "4.", "-.9", "-90E3" выдает false, хотя должен быть true
+object Task12 {
   def solution(s: String): Boolean = {
-    val integerGroup = "^([\\+-]?\\d+)"
-    val fractionalGroup = "(\\.\\d+)?"
-    val exponentGroup = "(e[\\+-]?\\d+)?"
-    val regex = s"$integerGroup$fractionalGroup$exponentGroup"
+    val numberGroup = "[+-]?(\\d+\\.?|\\.\\d+)\\d*"
+    val exponentGroup = "([eE][+-]?\\d+)?"
+    val regex = s"$numberGroup$exponentGroup"
 
     s.trim.matches(regex)
   }
@@ -35,4 +34,8 @@ object Task12 { // todo  Для ".1", "4.", "-.9", "-90E3" выдает false, �
   println(s"Task 12 = ${solution(" --6 ")}")     // Task 12 = false
   println(s"Task 12 = ${solution("-+3")}")       // Task 12 = false
   println(s"Task 12 = ${solution("95a54e53")}")  // Task 12 = false
+  println(s"Task 12 = ${solution(".1")}")        // Task 12 = true
+  println(s"Task 12 = ${solution("4.")}")        // Task 12 = true
+  println(s"Task 12 = ${solution("-.9")}")       // Task 12 = true
+  println(s"Task 12 = ${solution("-90E3")}")     // Task 12 = true
 }
