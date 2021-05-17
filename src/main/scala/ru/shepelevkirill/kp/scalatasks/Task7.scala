@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * Дан массив неотрицательных целых чисел, где вы изначально располагаетесь на начальном индексе массива.
@@ -14,7 +15,7 @@ object Task7 {
     } else {
       for (a <- 1 to nums.headOption.getOrElse(0)) {
         if (solution(nums.drop(a))) return true // TODO Можно ли здесь использовать return? Задача помечена как done но
-                                                //      но return'ы же вроде бы не юзаем?
+        //      но return'ы же вроде бы не юзаем?
       }
 
       false

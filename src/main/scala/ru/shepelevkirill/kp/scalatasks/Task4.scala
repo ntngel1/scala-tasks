@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 import scala.annotation.tailrec
 import scala.collection.Searching

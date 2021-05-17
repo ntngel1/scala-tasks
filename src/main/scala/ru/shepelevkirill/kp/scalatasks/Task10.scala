@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * Дана n x n 2D матрица (двумерный массив) представляющая изображение. Поверните изображение на 90 градусов

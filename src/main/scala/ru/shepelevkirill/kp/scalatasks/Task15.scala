@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * Дана 2D сеточная карта, состоящая из "1" (земля) и "0" (вода). Подсчитайте количество островов.
@@ -11,7 +12,7 @@ object Task15 {
     def markVisited(row: Int, column: Int): Unit = {
       if (row < 0 || row >= grid.length || column < 0 || column >= grid.head.length || grid(row)(column) == '0')
         return // TODO Можно ли здесь использовать return? Задача помечена как done но
-               //      но return'ы же вроде бы не юзаем?
+      //      но return'ы же вроде бы не юзаем?
 
       grid(row).update(column, '0')
 
@@ -35,20 +36,20 @@ object Task15 {
   }
 
   val grid1 = Array(
-    Array('1','1','1','1','0'),
-    Array('1','1','0','1','0'),
-    Array('1','1','0','0','0'),
-    Array('0','0','0','0','0')
+    Array('1', '1', '1', '1', '0'),
+    Array('1', '1', '0', '1', '0'),
+    Array('1', '1', '0', '0', '0'),
+    Array('0', '0', '0', '0', '0')
   )
 
   println(s"Task 15 = ${solution(grid1)}")
   // Task 15 = 1
 
   val grid2 = Array(
-    Array('1','1','0','0','0'),
-    Array('1','1','0','0','0'),
-    Array('0','0','1','0','0'),
-    Array('0','0','0','1','1')
+    Array('1', '1', '0', '0', '0'),
+    Array('1', '1', '0', '0', '0'),
+    Array('0', '0', '1', '0', '0'),
+    Array('0', '0', '0', '1', '1')
   )
 
   println(s"Task 15 = ${solution(grid2)}")

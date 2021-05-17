@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * Дан набор различных целых чисел. Верните все возможные перестановки.

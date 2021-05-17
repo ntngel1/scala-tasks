@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * По заданной строке найдите длину самой длинной подстроки без повторяющихся символов.

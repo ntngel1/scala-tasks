@@ -1,4 +1,5 @@
 package ru.shepelevkirill.kp
+package scalatasks
 
 import scala.collection.mutable.ListBuffer
 

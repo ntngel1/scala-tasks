@@ -1,4 +1,5 @@
-package ru.shepelevkirill.kp // TODO у меня IDEA не ругается на имя пакета
+package ru.shepelevkirill.kp
+package scalatasks
 
 /**
  * Дан массив чисел и целевое значение. Напишите программу, которая будет возвращать индексы 2 чисел, сумма которых
